@@ -32,6 +32,8 @@
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 card">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0  mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg p-6">
                     <form method="post" enctype="multipart/form-data" action="{{route('posts.update', $post->id)}}">
+                    {{ method_field('PATCH') }}
+
                         <div class="box-body">
                             <div class="form-group">
                                 <label class="text-gray-500" for="exampleInputEmail1">Post Title</label>

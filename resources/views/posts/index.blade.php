@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                     </div>
-                    <a href="posts/{{ $post->id }}">View</a>
+                    <a href="/posts/{{ $post->id }}">View</a>
                 @endforeach
             </div>
         </div> 
