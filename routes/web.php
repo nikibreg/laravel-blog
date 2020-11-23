@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TagController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +20,9 @@ Route::get('/', [PostController::class, 'index'])->name('home')->middleware('aut
 
 Route::resource('posts', PostController::class)->middleware('auth');
 Route::get('posts/{id}/delete', [PostController::class, 'delete'])->middleware('auth');
+
+Route::resource('tags', TagController::class)->middleware('auth');
+Route::get('tags/{id}/delete', [TagController::class, 'delete'])->middleware('auth');
 
 Route::get('users/login', [AuthController::class, 'login'])->name('login');
 Route::post('users/login', [AuthController::class, 'postLogin'])->name('postLogin');

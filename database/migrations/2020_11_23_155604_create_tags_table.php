@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserPostsOneToMany extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddUserPostsOneToMany extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+        Schema::create('tags', function (Blueprint $table) {
+            $table->string('name');
+            $table->primary('name');
+            $table->timestamps();
         });
     }
 
@@ -26,5 +27,6 @@ class AddUserPostsOneToMany extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('tags');
     }
 }

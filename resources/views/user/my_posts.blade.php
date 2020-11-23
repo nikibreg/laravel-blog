@@ -26,11 +26,15 @@
     <body class="antialiased">
         
         <div class="relative flex flex-col items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-            <a class="underline text-gray-900 dark:text-white">
+            <a class="underline text-gray-900 dark:text-white" href="/">
+                Home
+            </a>
+            
+            <a class="text-gray-900 dark:text-white">
                 Email: {{$user->email}}
             </a>
 
-            <a class="underline text-gray-900 dark:text-white">
+            <a class="text-gray-900 dark:text-white">
                 Name: {{$user->name}}
             </a>
             <br>

@@ -26,42 +26,18 @@
     <body class="antialiased">
         
         <div class="relative flex flex-col items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-            
-            <a class="underline text-gray-900 dark:text-white" href="/users/my_posts">
-                My Posts
-            </a>
-            
-
-            <a class="underline text-gray-900 dark:text-white" href="/tags">
-                Tags
-            </a>
-            
-            <a class="underline text-gray-900 dark:text-white" href="/posts/create">
-                Create new
-            </a>
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 card">
-                @foreach ($posts as $post)
-                    <div class="flex justify-center pt-8 sm:justify-start mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg p-6">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label class="text-gray-500" for="exampleInputEmail1">Post Title</label>
-                                    <br>
-                                    <span>{{ $post->title }}</span>
-                                </div>
-                                <div class="form-group">
-                                    <label class="text-gray-500" for="exampleInputEmail1">Post Text</label>
-                                    <br>
-                                    <span>{{ $post->text }}</span>
-                                </div>
-                                <div class="form-group">
-                                    <label class="text-gray-500" for="exampleInputEmail1">Post Likes</label>
-                                    <br>
-                                    <span>{{ $post->likes }}</span>
-                                </div>
+                <div class="flex justify-center pt-8 sm:justify-start mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg p-6">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="text-gray-500" for="exampleInputEmail1">Tag name</label>
+                                <br>
+                                <span>{{ $tag->name }}</span>
                             </div>
-                    </div>
-                    <a href="/posts/{{ $post->id }}">View</a>
-                @endforeach
+                        </div>
+                </div>
+                <a href="{{route('tags.edit', [$tag->name])}}">Edit</a> |
+                <a href="{{ $tag->name }}/delete">Delete</a>
             </div>
         </div> 
     </body>

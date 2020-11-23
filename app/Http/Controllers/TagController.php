@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
 use App\Models\Tag;
-use Illuminate\Support\Facades\Auth;
 
-class PostController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'asc')->get();
+        $tags = Tag::orderBy('created_at', 'asc')->get();
 
-        return view('posts.index', [
-            'posts' => $posts
+        return view('tags.index', [
+            'tags' => $tags
         ]);
     }
 
@@ -30,10 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $tags = Tag::orderBy('created_at', 'asc')->get();
-        return view('posts.create', [
-            'tags' => $tags,
-        ]);
+        return view('tags.create');
     }
 
     /**
@@ -44,15 +39,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post;
-        $post->title = $request->title;
-        $post->text = $request->text;
-        $post->likes = $request->likes;
-        $post->user_id = Auth::user()->id;
-        $post->save();
-        $post->tags()->sync($request->tags);
-        $post->save();
-        return redirect('/posts');
+        $tag = new Tag;
+        $tag->name = $request->name;
+        $tag->save();
+        return redirect('/tags');
     }
 
     /**
@@ -63,9 +53,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
-        return view('posts.single', [
-            'post' => $post
+        $tag = Tag::findOrFail($id);
+        return view('tags.single', [
+            'tag' => $tag
         ]);
     }
 
@@ -75,13 +65,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(string $id)
     {
-        $post = Post::findOrFail($id);
-        $tags = Tag::orderBy('created_at', 'asc')->get();
-        return view('posts.update', [
-            'post' => $post,
-            'tags' => $tags,
+        $tag = Tag::findOrFail($id);
+        return view('tags.update', [
+            'tag' => $tag
         ]);
     }
 
@@ -94,13 +82,10 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Post::findOrFail($id);
-        $post->title = $request->title;
-        $post->text = $request->text;
-        $post->likes = $request->likes;
-        $post->tags()->sync($request->tags);
-        $post->save();
-        return redirect('/posts');
+        $tag = Tag::findOrFail($id);
+        $tag->name = $request->name;
+        $tag->save();
+        return redirect('/tags');
     }
 
     /**
@@ -111,7 +96,12 @@ class PostController extends Controller
      */
     public function delete($id)
     {
-        Post::findOrFail($id)->delete();
-        return redirect('/posts');
+        Tag::findOrFail($id)->delete();
+        return redirect('/tags');
     }
 }
+
+
+
+
+

@@ -49,6 +49,13 @@
                                 <input type="name" class="form-control"  placeholder="Likes" name="likes">
                             </div>
                         </div>
+                        <select name="tags[]" id="tags" multiple>
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->name }}">
+                                    {{$tag->name}}
+                                </option>
+                            @endforeach
+                        </select>
                         <input type="hidden" name="_token"  id='csrf_toKen' value="{{ csrf_toKen() }}">
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Save</button>
