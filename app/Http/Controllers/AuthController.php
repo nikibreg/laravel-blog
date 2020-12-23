@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-use App\Mail\Mailer;
-use Illuminate\Support\Facades\Mail;
+use App\Notifications\MailSent;
 
 class AuthController extends Controller
 {
@@ -60,12 +59,11 @@ class AuthController extends Controller
     public function sendMail(Request $request)
     {
         $user = Auth::user();
-        $user->mailSent = true;
-        $user->save();
-        
         
         try {
-            Mail::to($user->email)->send(new Mailer()); 
+            $user->notify((new MailSent()));
+            $user->mailSent = true;
+            $user->save();
         } catch (\Throwable $th) {
             return "fail";
         }
