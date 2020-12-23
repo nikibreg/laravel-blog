@@ -21,6 +21,12 @@
             .card{
                 min-width: 500px;
             }
+            #send-mail {
+                background: none;
+            }
+            #send-mail:enabled{
+                cursor:pointer;
+            }
         </style>
     </head>
     <body class="antialiased">
@@ -39,6 +45,13 @@
             <a class="underline text-gray-900 dark:text-white" href="/posts/create">
                 Create new
             </a>
+
+            <button id="send-mail" onclick="sendMail()" class="{{  $user->mailSent ? 'text-gray-500' : 'text-gray-900' }} dark:text-white"   {{ $user->mailSent ?? 'disabled' }}>
+                {{ $user->mailSent ? 'Mail already sent' : 'Send me a mail' }}
+            </button>
+            
+            <br>
+
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 card">
                 @foreach ($posts as $post)
                     <div class="flex justify-center pt-8 sm:justify-start mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg p-6">
@@ -64,5 +77,20 @@
                 @endforeach
             </div>
         </div> 
+        <script>
+            async function sendMail(){
+                const response = await fetch("/users/sendMail")
+                const responseText = await response.text()
+                if(responseText == "ok"){
+                    const sendMailButton = document.querySelector('#send-mail')
+                    sendMailButton.classList.add("text-gray-500")
+                    sendMailButton.classList.remove("text-gray-900")
+                    sendMailButton.innerText = "Mail already sent"
+                } else if (responseText == "fail") {
+                    alert("The request failed")
+                }
+                    
+            }
+        </script>
     </body>
 </html>

@@ -30,3 +30,4 @@ Route::get('users/register', [AuthController::class, 'register'])->name('postReg
 Route::post('users/postRegister', [AuthController::class, 'postRegister'])->name('postRegister');
 Route::get('users/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 Route::get('users/my_posts', [AuthController::class, 'my_posts'])->name('my_posts')->middleware('auth');
+Route::get('users/sendMail', [AuthController::class, 'sendMail'])->middleware('auth');

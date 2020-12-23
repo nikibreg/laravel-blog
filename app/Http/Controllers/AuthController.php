@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+use App\Mail\Mailer;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -51,5 +53,22 @@ class AuthController extends Controller
         return view('user.my_posts', [
             'user' => $user
         ]);
+    }
+
+    
+
+    public function sendMail(Request $request)
+    {
+        $user = Auth::user();
+        $user->mailSent = true;
+        $user->save();
+        
+        
+        try {
+            Mail::to($user->email)->send(new Mailer()); 
+        } catch (\Throwable $th) {
+            return "fail";
+        }
+        return "ok";
     }
 }

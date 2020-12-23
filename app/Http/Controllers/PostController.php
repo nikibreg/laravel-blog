@@ -19,6 +19,7 @@ class PostController extends Controller
         $posts = Post::orderBy('created_at', 'asc')->get();
 
         return view('posts.index', [
+            'user' => Auth::user(),
             'posts' => $posts
         ]);
     }
